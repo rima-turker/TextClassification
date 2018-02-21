@@ -1,8 +1,10 @@
-package util;
+package Embeddings;
 
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import util.HtmlLink;
 
 
 public class HTMLLinkExtractor {
@@ -20,6 +22,9 @@ public class HTMLLinkExtractor {
 		patternLink = Pattern.compile(HTML_A_HREF_TAG_PATTERN);
 	}
 
+	public static String cleanAnchorTexts(String sentenceString) {
+		return sentenceString.replaceAll("<[^>]*>", "");
+	}
 	/**
 	 * Validate html with regular expression
 	 *
@@ -28,17 +33,20 @@ public class HTMLLinkExtractor {
 	 * @return Vector links and link text
 	 */
 	public Vector<HtmlLink> grabHTMLLinks(final String sentenceString) {
-		
 		Vector<HtmlLink> result = new Vector<HtmlLink>();
-		final String sentenceWithoutHtmlTag = sentenceString.replaceAll("<[^>]*>", "");
 		matcherTag = patternTag.matcher(sentenceString);
 
+		final String sentenceWithoutHtmlTag = sentenceString.replaceAll("<[^>]*>", "");
+		
 		while (matcherTag.find()) {
-			String href = matcherTag.group(1); // href
-			String linkText = matcherTag.group(2); // link text
+
+			String href = matcherTag.group(1);
+			String linkText = matcherTag.group(2);
 			matcherLink = patternLink.matcher(href);
 
+			
 			while (matcherLink.find()) {
+
 				String link = matcherLink.group(1); // link
 				HtmlLink obj = new HtmlLink();
 				obj.setUrl(link);
@@ -50,5 +58,10 @@ public class HTMLLinkExtractor {
 		}
 		return result;
 	}
+	
+	public static String removeAHrefTags(String text) {
+		return text.replaceAll("<a.*?>", "").replaceAll("</a>", "");
+	}
 }
+
 

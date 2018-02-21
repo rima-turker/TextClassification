@@ -12,16 +12,19 @@ public class Tuple {
 		this.a = a;
 		this.b = b;
 	}
-	public void setA_mention(String a) {
+	
+	
+	
+	public void setA(String a) {
 		this.a = a;
 	}
-	public void setB_link(String b) {
+	public void setB(String b) {
 		this.b=b;
 	}
-	public String getA_mention() {
+	public String getA() {
 		return a;
 	}
-	public String getB_link() {
+	public String getB() {
 		return b;
 	}
 	@Override
